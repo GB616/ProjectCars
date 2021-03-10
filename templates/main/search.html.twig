@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Search{% endblock %}
+
+{% block body%}
+    <div class="container" style="min-height: 450px;">
+    <h4>What are you look for?</h4>
+    <form method='POST'  >
+        <input type='text' name='key' class="form-control"></input>
+        <button type='submit' name='submit' class="btn-primary btn ">Submit</button>
+    </form>
+    
+    {% if (resultsCar|length > 0) or  (resultsComment|length > 0) %}
+     {% if (resultsCar|length > 0)%}
+    {%for row in resultsCar %}
+     <div class="border border-primary">
+           <h4>Car: {{row.year}} {{row.model}}  Owner: {{row.name}}</h4>    
+           Description: {{row.description}} <br>
+           Engine desription: {{row.engineDescription}} <br>
+           Exterior: {{row.externalDescription}} <br>
+           Interior: {{row.internalDescription}}  <br>   
+        <a href="{{path('project', {slug: row.slug})}}">View</a> 
+     </div>
+     {% endfor %}
+     {% endif %}
+      {% if (resultsComment|length > 0)%}
+     {%for row in resultsComment%}
+     <div class="border border-primary">
+        <h4>Comment: {{row.content}} </h4>   
+        Author: {{row.name}} 
+        Car: {{row.year}} {{row.model}}
+             
+        <a href="{{path('project', {slug: row.slug})}}">View</a> 
+     </div>
+    {% endfor %}
+    {% endif %}
+    {% else %}
+    There is no results
+    {% endif %}
+    </div>
+{% endblock %}

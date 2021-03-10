@@ -1,0 +1,35 @@
+@import '~bootstrap/scss/bootstrap';
+//body {
+//    background-color: darkblue;
+//}
+body{
+    background-color: rgba(56, 55, 55, 0.199);
+}
+.slides {
+    display: none;
+}
+
+.row_header{
+    background-color: darkgreen;
+    float: left;
+    text-align: center;
+}  
+
+.row_content{
+    background-color: darkkhaki;
+    float: left;
+}
+
+.votes{
+    background-color: rgb(72, 72, 72);
+    float: left;
+}
+
+.pages{
+    background-color: darkviolet;
+    float: left;
+}
+
+.coment-header{
+    border-bottom: darkblue;
+}

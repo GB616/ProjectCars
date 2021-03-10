@@ -1,0 +1,117 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}User{% endblock %}
+
+{% block body%}
+<div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        STH
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+{% if user != 'anon.'%}
+<div class="media shadow border rounded-lg p-3 mb-4">
+<div class="row">
+    <div class="col-sm">
+        <IMG src="{{asset('upload/photos/' ~ user.profilePicturePath)}}"></IMG>
+    </div>
+    <div class="col-sm">
+        Nick: {{user.name}} <br>
+        Email: {{user.email}}  <br>
+        First logged: {{user.creationDate|format_datetime('medium', 'short')}}
+    </div>
+    
+      {% if logged %}
+    <div class="col-sm">
+    {{form(user_picture)}}
+    </div>
+    {% endif %}
+</div>
+</div>
+{% endif %}
+  {% if cars|length > 0 %}
+        {% for car in cars %}
+            <div class="media shadow border rounded-lg p-3 mb-4">
+                   
+                <div class="media-body">
+                    <h4 class="font-weight-light mb-0">
+                        <h4><a href="{{path('project',{slug: car.slug})}}">{{car.brand}} {{ car.model }} {{car.year}}</a></h4>
+                        {% include 'car.html.twig' %}
+                    </h4>
+                           
+                        {#  <form name="car_picture" method="post" enctype="multipart/form-data">
+                            <div id="car_picture">
+                            <div class="form-group">
+                            <label for="car_picture_path" class="required">Add photo of your car</label>
+                            <div class="custom-file">
+                            <input type="file" id="car_picture_path" name="car_picture[path]" required="required" class="custom-file-input">
+                            <label for="car_picture_path" lang="en" class="custom-file-label">
+                            </label>
+                            </div>
+                            </div>
+                                <input type="hidden" id="car_picture_car" name="car_picture[car1]" value="{{car.id}}">
+                                <input type="hidden" id="car_picture_car" name="car_picture[car]">
+                                
+                            <div class="form-group">
+                            <button type="submit" id="car_picture_Add" name="car_picture[Add]" class="btn-primary btn">Add</button>
+                            </div>
+                            <input type="hidden" id="car_picture__token" name="car_picture[_token]" value="hU3IH6wI62tt0albytsDX5wSSVXeNBVH202G2DwY-i8">
+                            </div>
+                            </form>
+                             #}   
+                                
+                            {% if logged %}
+                            <div>
+                             <a class="btn btn-dark" href="{{ path("edit_car", { slug: car.slug }) }}">Edit your car</a>
+                            </div>
+                            <div>
+                           <a class="btn btn-dark" href="{{ path("remove_car", {id: user.id, slug: car.slug }) }}" data-bs-toggle="modal" data-bs-target="#exampleModal">Delete car</a> 
+                            </div>
+                           {% endif %} 
+                            
+                    </div>
+                </div>   
+                
+        {% endfor %}
+    {% endif %}   
+
+    
+     
+    <a type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id="myButton">
+  Launch demo modal
+</a>
+
+
+    </div>
+    {% block script %}
+    <script type="text/javascript">
+        var myModal = document.getElementById('exampleModal');
+        var myButton = document.getElementById('myButton');
+   
+       console.log(myModal);
+       // var myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+       
+        myModal.addEventListener('show.bs.modal', function (event) {
+        
+        alert("in");
+        })
+
+         myButton.addEventListener("click", function() {
+        myModal.click()
+    })
+    </script>
+    {% endblock %}
+    {% endblock %} 
